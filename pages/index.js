@@ -11,3 +11,22 @@ export default function Home() {
     </div>
   );
 }
+import { useEffect, useState } from "react";
+
+export default function Home() {
+  const [apiMessage, setApiMessage] = useState("Yükleniyor...");
+
+  useEffect(() => {
+    fetch("https://seninbotun.up.railway.app/ping")
+      .then(res => res.json())
+      .then(data => setApiMessage(data.message))
+      .catch(() => setApiMessage("❌ API’ye bağlanılamadı"));
+  }, []);
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Discord Bot Panel</h1>
+      <p>API’den gelen mesaj: {apiMessage}</p>
+    </div>
+  );
+}
